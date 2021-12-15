@@ -123,9 +123,7 @@ class ViewController: UIViewController {
             showAlert(message:"The Internet connection appears to be offline")
            
         }
-        
-        
-        
+ 
         DispatchQueue.main.async {
             self.showhud()
         }
@@ -162,11 +160,6 @@ class ViewController: UIViewController {
                                        obj.setValue(i.movieReleaseDate, forKey: "date")
                                        obj.setValue(i.movieImage, forKey: "image")
                             
-                            print(i.movieTitle)
-                             print(i.movieId)
-                             print(i.movieOverview)
-                            print(i.movieReleaseDate)
-                            print(i.movieImage)
                             
                             do{
                                 try contex.save()
@@ -196,9 +189,7 @@ class ViewController: UIViewController {
 class movieListtableviewCell:UITableViewCell{
     
     @IBOutlet weak var imgMovielist: UIImageView!
-    
     @IBOutlet weak var lblMovieName: UILabel!
-    
     @IBOutlet weak var lblMovieDate: UILabel!
     @IBOutlet weak var lblMovieDescription: UILabel!
 }
@@ -230,10 +221,20 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as! MovieDetailVC
-        vc.movieID = movieListArray[indexPath.row].movieId!
-        vc.movieTitle = movieListArray[indexPath.row].movieTitle!
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        if(!self.isInternetAvailable())
+        {
+            showAlert(message:"Unable to contact the server")
+           
+        }else{
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as! MovieDetailVC
+            vc.movieID = movieListArray[indexPath.row].movieId!
+            vc.movieTitle = movieListArray[indexPath.row].movieTitle!
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+   
         
     }
     

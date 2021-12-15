@@ -37,6 +37,10 @@ class MovieDetailVC: UIViewController {
     @IBAction func btnbackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    
+    
+    
     func showhud()
     {
         let loading = MBProgressHUD.showAdded(to: self.view, animated: true)
