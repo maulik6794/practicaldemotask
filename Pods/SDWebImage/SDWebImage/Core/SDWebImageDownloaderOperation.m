@@ -191,7 +191,6 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
             }
             if (cachedResponse) {
                 self.cachedData = cachedResponse.data;
-                self.response = cachedResponse.response;
             }
         }
         
@@ -324,9 +323,7 @@ didReceiveResponse:(NSURLResponse *)response
         response = [self.responseModifier modifiedResponseWithResponse:response];
         if (!response) {
             valid = NO;
-            self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain
-                                                     code:SDWebImageErrorInvalidDownloadResponse
-                                                 userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response is nil"}];
+            self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorInvalidDownloadResponse userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response is nil"}];
         }
     }
     
@@ -335,42 +332,18 @@ didReceiveResponse:(NSURLResponse *)response
     self.expectedSize = expected;
     self.response = response;
     
-    // Check status code valid (defaults [200,400))
-    NSInteger statusCode = [response isKindOfClass:NSHTTPURLResponse.class] ? ((NSHTTPURLResponse *)response).statusCode : 0;
-    BOOL statusCodeValid = YES;
-    if (valid && statusCode > 0 && self.acceptableStatusCodes) {
-        statusCodeValid = [self.acceptableStatusCodes containsIndex:statusCode];
-    }
+    NSInteger statusCode = [response respondsToSelector:@selector(statusCode)] ? ((NSHTTPURLResponse *)response).statusCode : 200;
+    // Status code should between [200,400)
+    BOOL statusCodeValid = statusCode >= 200 && statusCode < 400;
     if (!statusCodeValid) {
         valid = NO;
-        self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain
-                                                 code:SDWebImageErrorInvalidDownloadStatusCode
-                                             userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Download marked as failed because of invalid response status code %ld", (long)statusCode],
-                                                        SDWebImageErrorDownloadStatusCodeKey : @(statusCode),
-                                                        SDWebImageErrorDownloadResponseKey : response}];
-    }
-    // Check content type valid (defaults nil)
-    NSString *contentType = [response isKindOfClass:NSHTTPURLResponse.class] ? ((NSHTTPURLResponse *)response).MIMEType : nil;
-    BOOL contentTypeValid = YES;
-    if (valid && contentType.length > 0 && self.acceptableContentTypes) {
-        contentTypeValid = [self.acceptableContentTypes containsObject:contentType];
-    }
-    if (!contentTypeValid) {
-        valid = NO;
-        self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain
-                                                 code:SDWebImageErrorInvalidDownloadContentType
-                                             userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Download marked as failed because of invalid response content type %@", contentType],
-                                                        SDWebImageErrorDownloadContentTypeKey : contentType,
-                                                        SDWebImageErrorDownloadResponseKey : response}];
+        self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorInvalidDownloadStatusCode userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response status code is not in 200-400", SDWebImageErrorDownloadStatusCodeKey : @(statusCode)}];
     }
     //'304 Not Modified' is an exceptional one
     //URLSession current behavior will return 200 status code when the server respond 304 and URLCache hit. But this is not a standard behavior and we just add a check
-    if (valid && statusCode == 304 && !self.cachedData) {
+    if (statusCode == 304 && !self.cachedData) {
         valid = NO;
-        self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain
-                                                 code:SDWebImageErrorCacheNotModified
-                                             userInfo:@{NSLocalizedDescriptionKey: @"Download response status code is 304 not modified and ignored",
-                                                        SDWebImageErrorDownloadResponseKey : response}];
+        self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorCacheNotModified userInfo:@{NSLocalizedDescriptionKey : @"Download response status code is 304 not modified and ignored"}];
     }
     
     if (valid) {
@@ -503,10 +476,7 @@ didReceiveResponse:(NSURLResponse *)response
                  *  then we should check if the cached data is equal to image data
                  */
                 if (self.options & SDWebImageDownloaderIgnoreCachedResponse && [self.cachedData isEqualToData:imageData]) {
-                    self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain
-                                                             code:SDWebImageErrorCacheNotModified
-                                                         userInfo:@{NSLocalizedDescriptionKey : @"Downloaded image is not modified and ignored",
-                                                                    SDWebImageErrorDownloadResponseKey : self.response}];
+                    self.responseError = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorCacheNotModified userInfo:@{NSLocalizedDescriptionKey : @"Downloaded image is not modified and ignored"}];
                     // call completion block with not modified error
                     [self callCompletionBlocksWithError:self.responseError];
                     [self done];
@@ -565,9 +535,7 @@ didReceiveResponse:(NSURLResponse *)response
                 credential = self.credential;
                 disposition = NSURLSessionAuthChallengeUseCredential;
             } else {
-                // Web Server like Nginx can set `ssl_verify_client` to optional but not always on
-                // We'd better use default handling here
-                disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
             }
         } else {
             disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;

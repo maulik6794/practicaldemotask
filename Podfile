@@ -7,7 +7,6 @@ target 'PracticalTestExcellent webworld' do
 
   # Pods for PracticalTestExcellent webworld
 
-
 pod 'Alamofire'
 pod 'SDWebImage'
 pod 'SwiftyJSON'

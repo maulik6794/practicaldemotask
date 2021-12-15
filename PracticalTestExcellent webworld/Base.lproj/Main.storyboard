@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bu8-5c-cXc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -35,7 +36,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aC4-bt-hhI">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movieListtableviewCell" rowHeight="237" id="cH1-NM-ef6" customClass="movieListtableviewCell" customModule="PracticalTestExcellent_webworld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="375" height="237"/>
@@ -74,7 +75,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="161" id="b1s-M9-Kno"/>
                                                     </constraints>
-                                                    <mutableString key="text">As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.</mutableString>
+                                                    <string key="text">As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -126,10 +127,87 @@
             </objects>
             <point key="canvasLocation" x="44" y="67.916041979010501"/>
         </scene>
+        <!--Movie DetailVC-->
+        <scene sceneID="bhL-AM-GF2">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bu8-5c-cXc" customClass="MovieDetailVC" customModule="PracticalTestExcellent_webworld" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="du9-el-BAT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pd3-rv-HFo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Mr-WvS">
+                                        <rect key="frame" x="139" y="41.5" width="97.5" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.14930805559999999" green="0.20401328799999999" blue="0.27537605170000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Lh6-Mr-WvS" firstAttribute="centerX" secondItem="Pd3-rv-HFo" secondAttribute="centerX" id="1HA-Wf-kmO"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lh6-Mr-WvS" secondAttribute="bottom" constant="15" id="W3R-b8-zGs"/>
+                                    <constraint firstAttribute="height" constant="80" id="cex-EO-WXe"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uz7-VY-3Nf">
+                                <rect key="frame" x="0.0" y="80" width="375" height="1020"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJ5-IU-Qgj">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1020"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dac-u5-dPB">
+                                                <rect key="frame" x="67" y="903" width="240" height="99"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="dac-u5-dPB" firstAttribute="leading" secondItem="bJ5-IU-Qgj" secondAttribute="leading" constant="67" id="JXn-mq-gVc"/>
+                                            <constraint firstAttribute="bottom" secondItem="dac-u5-dPB" secondAttribute="bottom" constant="18" id="QEE-HT-psC"/>
+                                            <constraint firstAttribute="height" constant="1020" id="aA7-ic-J15"/>
+                                            <constraint firstItem="dac-u5-dPB" firstAttribute="top" secondItem="bJ5-IU-Qgj" secondAttribute="top" constant="903" id="b8g-1e-S6G"/>
+                                            <constraint firstAttribute="trailing" secondItem="dac-u5-dPB" secondAttribute="trailing" constant="68" id="rF6-pv-T0C"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bJ5-IU-Qgj" secondAttribute="trailing" id="5HA-dT-4DI"/>
+                                    <constraint firstItem="bJ5-IU-Qgj" firstAttribute="width" secondItem="Uz7-VY-3Nf" secondAttribute="width" id="9JY-cA-drf"/>
+                                    <constraint firstAttribute="bottom" secondItem="bJ5-IU-Qgj" secondAttribute="bottom" id="Ryf-MP-llc"/>
+                                    <constraint firstItem="bJ5-IU-Qgj" firstAttribute="leading" secondItem="Uz7-VY-3Nf" secondAttribute="leading" id="azN-qq-z5Z"/>
+                                    <constraint firstItem="bJ5-IU-Qgj" firstAttribute="top" secondItem="Uz7-VY-3Nf" secondAttribute="top" id="cSJ-0u-xCd"/>
+                                    <constraint firstItem="bJ5-IU-Qgj" firstAttribute="centerY" secondItem="Uz7-VY-3Nf" secondAttribute="centerY" id="m4S-sc-c1Q"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a0B-IH-7Zk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pd3-rv-HFo" firstAttribute="leading" secondItem="a0B-IH-7Zk" secondAttribute="leading" id="F1U-ED-6Ky"/>
+                            <constraint firstItem="Uz7-VY-3Nf" firstAttribute="leading" secondItem="a0B-IH-7Zk" secondAttribute="leading" id="HzF-HN-XrQ"/>
+                            <constraint firstAttribute="bottom" secondItem="Uz7-VY-3Nf" secondAttribute="bottom" id="XmQ-CS-USt"/>
+                            <constraint firstItem="a0B-IH-7Zk" firstAttribute="trailing" secondItem="Uz7-VY-3Nf" secondAttribute="trailing" id="YDe-Ob-Wka"/>
+                            <constraint firstItem="Uz7-VY-3Nf" firstAttribute="top" secondItem="Pd3-rv-HFo" secondAttribute="bottom" id="g03-3x-ZAG"/>
+                            <constraint firstItem="Pd3-rv-HFo" firstAttribute="top" secondItem="du9-el-BAT" secondAttribute="top" id="hj4-mQ-DAO"/>
+                            <constraint firstItem="Pd3-rv-HFo" firstAttribute="trailing" secondItem="a0B-IH-7Zk" secondAttribute="trailing" id="ixh-p2-LqC"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="1100"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rPN-6w-KkB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="821.60000000000002" y="53.973013493253376"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
