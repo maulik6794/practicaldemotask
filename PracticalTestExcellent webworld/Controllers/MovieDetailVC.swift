@@ -10,9 +10,7 @@ class MovieDetailVC: UIViewController {
     @IBOutlet weak var imgMovie: UIImageView!
     @IBOutlet weak var lblMovieName: UILabel!
     @IBOutlet weak var lblMovieDesc: UILabel!
-    
     @IBOutlet weak var lblMovieTitle: UILabel!
-    
     @IBOutlet weak var lblOverView: UILabel!
     @IBOutlet weak var lblGenres: UILabel!
     @IBOutlet weak var lblDuration: UILabel!
@@ -21,12 +19,16 @@ class MovieDetailVC: UIViewController {
     @IBOutlet weak var lblProductBudget: UILabel!
     @IBOutlet weak var lblproductRevenue: UILabel!
     @IBOutlet weak var lblLanguages: UILabel!
+    
+    //MARK: VARIABLE
     var movieID:Int!
     var movieTitle:String!
     var genersValues = [NSDictionary]()
    var companyValue = [NSDictionary]()
     var genrName = [String]()
     var compNames = [String]()
+    
+    //MARK: View Didload
     override func viewDidLoad() {
         super.viewDidLoad()
         getMovieDetails()
@@ -34,13 +36,12 @@ class MovieDetailVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    //MARK: BUTTON ACTION
     @IBAction func btnbackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    
-    
+      
+    //MARK: FUNCATION DEFINE
     func showhud()
     {
         let loading = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -75,18 +76,15 @@ class MovieDetailVC: UIViewController {
                             self.lblMovieDesc.text = (responseDict.value(forKey: "tagline") as! String)
                         }
                         if  responseDict.value(forKey: "poster_path") as! String != ""{
-                         //   self.imgMovie.image = (responseDict.value(forKey: "poster_path") as! String)
+                   
                             self.imgMovie.setImage("\("https://image.tmdb.org/t/p/w200")\(responseDict.value(forKey: "poster_path") as! String)")
                         }
                         
                         if  responseDict.value(forKey: "backdrop_path") as? String != nil{
-                         //   self.imgMovie.image = (responseDict.value(forKey: "poster_path") as! String)
+                     
                             self.imgMoviebackround.setImage("\("https://image.tmdb.org/t/p/w500")\(responseDict.value(forKey: "backdrop_path") as! String)")
                         }
-                        
-                        
-                        
-                        
+                   
                         if  responseDict.value(forKey: "overview") as! String != ""{
                             self.lblOverView.text = (responseDict.value(forKey: "overview") as! String)
                             
@@ -95,11 +93,8 @@ class MovieDetailVC: UIViewController {
                         let genersArr = responseDict.value(forKey: "genres") as! [NSDictionary]
                         for i in 0..<genersArr.count
                         {
-                       
                             self.genersValues.append(genersArr[i] as! NSDictionary)
-                            
-                          
-                            
+        
                         }
                         for i in 0..<genersArr.count{
                             
@@ -123,16 +118,13 @@ class MovieDetailVC: UIViewController {
                             self.lblproductRevenue.text = "\("$ ")\((responseDict.value(forKey: "revenue") as! Int))"
                             
                         }
-                      
-                        //......
                         
                         let companyName = responseDict.value(forKey: "production_companies") as! [NSDictionary]
                         for i in 0..<companyName.count
                         {
                        
                             self.companyValue.append(companyName[i] as! NSDictionary)
-
-                            
+ 
                         }
                         for i in 0..<self.companyValue.count{
                             

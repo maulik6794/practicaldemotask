@@ -5,56 +5,48 @@ import SDWebImage
 import MBProgressHUD
 import SystemConfiguration
 import CoreData
-class ViewController: UIViewController {
+class MovieListVC: UIViewController {
     
-    // MARK:- outlets.
+    //MARK: OUTLET
     @IBOutlet weak var tableviewMovie: UITableView!
     
-    // MARK:- variables.
+    //MARK: VARIABLE
     var pageNo : Int = 1
     var limit : Int = 10
     var totalPages : Int = 0
-   
     var imageArray = [String]()
     var isLoadingList : Bool = false
-    
     var movieListArray = [MovieModel]()
     var App = UIApplication.shared.delegate as! AppDelegate
-    // MARK:- view cycle.
+    
+    //MARK: View Didload
     override func viewDidLoad() {
         super.viewDidLoad()
         self.movieListArray.removeAll()
         self.AlamofireGetCode()
     }
-    
+    //MARK: FUNCATION DEFINE
     func GetFetch(){
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieList")
-          let contex = self.App.persistentContainer.viewContext
+        let contex = self.App.persistentContainer.viewContext
         do {
-
-          let result = try contex.fetch(fetch)
-          for data in result as! [NSManagedObject] {
-            print(data.value(forKey: "name") as! String)
-                       
-              let objS = MovieModel(MovieId: (Int(data.value(forKey: "id") as! String)!), MovieImage: (data.value(forKey: "image") as! String), MovieTitle: (data.value(forKey: "name") as! String), MovieReleaseDate: (data.value(forKey: "date") as! String), MovieOverView: (data.value(forKey: "descriptions") as! String))
-              
-//
-//            objS.movieTitle = (data.value(forKey: "region") as! String)
-//            objS.movieId = (data.value(forKey: "deceased") as! Int)
-//            objS.movieOverview = (data.value(forKey: "recovered") as! Int)
-              
-            objS.dataFT = data
-              print(objS.dataFT)
-              
-              self.movieListArray.append(objS)
             
-              self.tableviewMovie.delegate = self
-              self.tableviewMovie.dataSource = self
-              tableviewMovie.reloadData()
-              self.hidehud()
-          }
+            let result = try contex.fetch(fetch)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "name") as! String)
+                
+                let objS = MovieModel(MovieId: (Int(data.value(forKey: "id") as! String)!), MovieImage: (data.value(forKey: "image") as! String), MovieTitle: (data.value(forKey: "name") as! String), MovieReleaseDate: (data.value(forKey: "date") as! String), MovieOverView: (data.value(forKey: "descriptions") as! String))
+
+                objS.dataFT = data
+                print(objS.dataFT)
+                self.movieListArray.append(objS)
+                self.tableviewMovie.delegate = self
+                self.tableviewMovie.dataSource = self
+                tableviewMovie.reloadData()
+                self.hidehud()
+            }
         } catch {
-          print("Failed")
+            print("Failed")
         }
     }
     func showhud()
@@ -99,10 +91,8 @@ class ViewController: UIViewController {
         let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in
             alertController.dismiss(animated: true, completion: nil)
             
-        //MARK : core data method Update
-            
+            //MARK : core data method Update
             self.GetFetch()
-            
             
         }
         action1.setValue(UIColor.black, forKey: "titleTextColor")
@@ -113,7 +103,7 @@ class ViewController: UIViewController {
                 UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
             }
         }
-
+        
     }
     
     func AlamofireGetCode()
@@ -121,9 +111,9 @@ class ViewController: UIViewController {
         if(!self.isInternetAvailable())
         {
             showAlert(message:"The Internet connection appears to be offline")
-           
+            
         }
- 
+        
         DispatchQueue.main.async {
             self.showhud()
         }
@@ -153,14 +143,13 @@ class ViewController: UIViewController {
                         for i in  self.movieListArray{
                             
                             let obj = NSEntityDescription.insertNewObject(forEntityName: "MovieList", into: contex)
-                                  
-                                       obj.setValue(i.movieTitle, forKey: "name")
-                                       obj.setValue(String(i.movieId), forKey: "id")
-                                       obj.setValue(i.movieOverview, forKey: "descriptions")
-                                       obj.setValue(i.movieReleaseDate, forKey: "date")
-                                       obj.setValue(i.movieImage, forKey: "image")
                             
-                            
+                            obj.setValue(i.movieTitle, forKey: "name")
+                            obj.setValue(String(i.movieId), forKey: "id")
+                            obj.setValue(i.movieOverview, forKey: "descriptions")
+                            obj.setValue(i.movieReleaseDate, forKey: "date")
+                            obj.setValue(i.movieImage, forKey: "image")
+   
                             do{
                                 try contex.save()
                                 
@@ -168,12 +157,10 @@ class ViewController: UIViewController {
                             catch{
                                 
                             }
-                            
-                            
+                  
                         }
-                        
-                        
-                         self.hidehud()
+                
+                        self.hidehud()
                         self.tableviewMovie.delegate = self
                         self.tableviewMovie.dataSource = self
                         self.tableviewMovie.reloadData()
@@ -194,7 +181,7 @@ class movieListtableviewCell:UITableViewCell{
     @IBOutlet weak var lblMovieDescription: UILabel!
 }
 
-extension ViewController:UITableViewDelegate,UITableViewDataSource{
+extension MovieListVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieListArray.count
     }
@@ -206,8 +193,6 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         cell.lblMovieName.text = self.movieListArray[indexPath.row].movieTitle
         cell.lblMovieDate.text = self.movieListArray[indexPath.row].movieReleaseDate
         cell.lblMovieDescription.text = self.movieListArray[indexPath.row].movieOverview
-            
-       
         
         let objImgRow = self.movieListArray[indexPath.row].movieImage
         
@@ -225,7 +210,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if(!self.isInternetAvailable())
         {
             showAlert(message:"Unable to contact the server")
-           
+            
         }else{
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as! MovieDetailVC
@@ -233,11 +218,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             vc.movieTitle = movieListArray[indexPath.row].movieTitle!
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-   
-        
     }
-    
     //pagination
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isLoadingList = false
@@ -259,8 +240,6 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
-    
-    
 }
 
 //MARK: - UIImageView
@@ -273,19 +252,6 @@ extension UIImageView{
             self.sd_setImage(with: URL(string: url ?? ""), placeholderImage: placeHolder, completed: nil)
         }
     }
-    //    func setGradient(colorTop: UIColor, colorBottom: UIColor)
-    //      {
-    //          let view = UIView(frame: self.bounds)
-    //          let gradientLayer = CAGradientLayer()
-    //          gradientLayer.frame = bounds
-    //          gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-    //          gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
-    //          gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
-    //          gradientLayer.locations = [0, 1]
-    //          view.layer.insertSublayer(gradientLayer, at: 0)
-    //          self.addSubview(view)
-    //          self.bringSubviewToFront(view)
-    //      }
     func applyshadowWithCorner(containerView : UIView, cornerRadious : CGFloat){
         containerView.clipsToBounds = false
         containerView.layer.shadowColor =  UIColor.init(red: 198/255, green: 198/255, blue: 198/255, alpha: 0.2).cgColor
