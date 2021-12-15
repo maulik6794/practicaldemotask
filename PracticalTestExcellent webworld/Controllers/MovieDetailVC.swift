@@ -2,6 +2,7 @@
 
 import UIKit
 import Alamofire
+import MBProgressHUD
 class MovieDetailVC: UIViewController {
 
     //MARK: OUTLET
@@ -36,10 +37,21 @@ class MovieDetailVC: UIViewController {
     @IBAction func btnbackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    func showhud()
+    {
+        let loading = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loading.mode = MBProgressHUDMode.indeterminate
+        loading.bezelView.color = UIColor.clear
+    }
+    func hidehud()
+    {
+        MBProgressHUD.hide(for: self.view, animated: true)
+    }
     func getMovieDetails()
     {
-        
+        DispatchQueue.main.async {
+            self.showhud()
+        }
         var url:String!
         url = "https://api.themoviedb.org/3/movie/\(movieID!)?api_key=14bc774791d9d20b3a138bb6e26e2579&language=en-US"
         
@@ -132,7 +144,7 @@ class MovieDetailVC: UIViewController {
                             
                         }
                        
-                        
+                        self.hidehud()
                         
                     }
                 case .failure(let error):

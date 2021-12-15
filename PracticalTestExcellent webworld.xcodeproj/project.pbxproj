@@ -20,6 +20,9 @@
 		67796B5F2768F2D9005B6143 /* PracticalTestExcellent_webworldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67796B5E2768F2D9005B6143 /* PracticalTestExcellent_webworldUITests.swift */; };
 		67796B612768F2D9005B6143 /* PracticalTestExcellent_webworldUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67796B602768F2D9005B6143 /* PracticalTestExcellent_webworldUITestsLaunchTests.swift */; };
 		743BDF4B2769B97E004381A9 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743BDF4A2769B97E004381A9 /* MovieDetailVC.swift */; };
+		743BDF4F2769FD5F004381A9 /* MovieList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743BDF4D2769FD5F004381A9 /* MovieList+CoreDataProperties.swift */; };
+		743BDF502769FD5F004381A9 /* MovieList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743BDF4E2769FD5F004381A9 /* MovieList+CoreDataClass.swift */; };
+		743BDF522769FDD5004381A9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BDF512769FDD5004381A9 /* CoreData.framework */; };
 		C77735D89D5074F847A51142 /* Pods_PracticalTestExcellent_webworld.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E7D176567EA530F7A620930 /* Pods_PracticalTestExcellent_webworld.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +64,9 @@
 		67796B602768F2D9005B6143 /* PracticalTestExcellent_webworldUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalTestExcellent_webworldUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CE1084F18ED2ADB34FDBE21 /* Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		743BDF4A2769B97E004381A9 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
+		743BDF4D2769FD5F004381A9 /* MovieList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		743BDF4E2769FD5F004381A9 /* MovieList+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieList+CoreDataClass.swift"; sourceTree = "<group>"; };
+		743BDF512769FDD5004381A9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8E0B4B31D315D4B0FE27F971 /* Pods-PracticalTestExcellent webworldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticalTestExcellent webworldTests.release.xcconfig"; path = "Target Support Files/Pods-PracticalTestExcellent webworldTests/Pods-PracticalTestExcellent webworldTests.release.xcconfig"; sourceTree = "<group>"; };
 		975E8938D0C81AF563EBD226 /* Pods-PracticalTestExcellent webworld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticalTestExcellent webworld.debug.xcconfig"; path = "Target Support Files/Pods-PracticalTestExcellent webworld/Pods-PracticalTestExcellent webworld.debug.xcconfig"; sourceTree = "<group>"; };
 		9F6256E0A73B72736CA285D3 /* Pods_PracticalTestExcellent_webworldTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PracticalTestExcellent_webworldTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743BDF522769FDD5004381A9 /* CoreData.framework in Frameworks */,
 				C77735D89D5074F847A51142 /* Pods_PracticalTestExcellent_webworld.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +127,7 @@
 		67796B392768F2D5005B6143 /* PracticalTestExcellent webworld */ = {
 			isa = PBXGroup;
 			children = (
+				743BDF4C2769FD52004381A9 /* CoredataHelper */,
 				743BDF472769B090004381A9 /* Application */,
 				743BDF482769B0A2004381A9 /* Models */,
 				743BDF462769B080004381A9 /* Controllers */,
@@ -174,9 +182,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		743BDF4C2769FD52004381A9 /* CoredataHelper */ = {
+			isa = PBXGroup;
+			children = (
+				743BDF4E2769FD5F004381A9 /* MovieList+CoreDataClass.swift */,
+				743BDF4D2769FD5F004381A9 /* MovieList+CoreDataProperties.swift */,
+			);
+			path = CoredataHelper;
+			sourceTree = "<group>";
+		};
 		900DA0EE39CF3B8F1707A514 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				743BDF512769FDD5004381A9 /* CoreData.framework */,
 				1E7D176567EA530F7A620930 /* Pods_PracticalTestExcellent_webworld.framework */,
 				6CE1084F18ED2ADB34FDBE21 /* Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests.framework */,
 				9F6256E0A73B72736CA285D3 /* Pods_PracticalTestExcellent_webworldTests.framework */,
@@ -440,6 +458,8 @@
 				6721705D2769259700064C80 /* MovieModel.swift in Sources */,
 				67796B3F2768F2D5005B6143 /* ViewController.swift in Sources */,
 				743BDF4B2769B97E004381A9 /* MovieDetailVC.swift in Sources */,
+				743BDF4F2769FD5F004381A9 /* MovieList+CoreDataProperties.swift in Sources */,
+				743BDF502769FD5F004381A9 /* MovieList+CoreDataClass.swift in Sources */,
 				67796B3B2768F2D5005B6143 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,7 +640,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2U683QQYS5;
+				DEVELOPMENT_TEAM = 32N927829C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PracticalTestExcellent webworld/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -650,7 +670,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2U683QQYS5;
+				DEVELOPMENT_TEAM = 32N927829C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PracticalTestExcellent webworld/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

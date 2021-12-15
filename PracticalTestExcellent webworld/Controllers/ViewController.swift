@@ -2,7 +2,9 @@
 import UIKit
 import Alamofire
 import SDWebImage
-
+import MBProgressHUD
+import SystemConfiguration
+import CoreData
 class ViewController: UIViewController {
     
     // MARK:- outlets.
@@ -17,7 +19,7 @@ class ViewController: UIViewController {
     var isLoadingList : Bool = false
     
     var movieListArray = [MovieModel]()
-    
+    var App = UIApplication.shared.delegate as! AppDelegate
     // MARK:- view cycle.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +27,108 @@ class ViewController: UIViewController {
         self.AlamofireGetCode()
     }
     
+    func GetFetch(){
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieList")
+          let contex = self.App.persistentContainer.viewContext
+        do {
+
+          let result = try contex.fetch(fetch)
+          for data in result as! [NSManagedObject] {
+            print(data.value(forKey: "name") as! String)
+                       
+              let objS = MovieModel(MovieId: (Int(data.value(forKey: "id") as! String)!), MovieImage: (data.value(forKey: "image") as! String), MovieTitle: (data.value(forKey: "name") as! String), MovieReleaseDate: (data.value(forKey: "date") as! String), MovieOverView: (data.value(forKey: "descriptions") as! String))
+              
+//
+//            objS.movieTitle = (data.value(forKey: "region") as! String)
+//            objS.movieId = (data.value(forKey: "deceased") as! Int)
+//            objS.movieOverview = (data.value(forKey: "recovered") as! Int)
+              
+            objS.dataFT = data
+              print(objS.dataFT)
+              
+              self.movieListArray.append(objS)
+            
+              self.tableviewMovie.delegate = self
+              self.tableviewMovie.dataSource = self
+              tableviewMovie.reloadData()
+              self.hidehud()
+          }
+        } catch {
+          print("Failed")
+        }
+    }
+    func showhud()
+    {
+        let loading = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loading.mode = MBProgressHUDMode.indeterminate
+        loading.bezelView.color = UIColor.clear
+    }
+    func hidehud()
+    {
+        MBProgressHUD.hide(for: self.view, animated: true)
+    }
     
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+        
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        
+        return (isReachable && !needsConnection)
+    }
     
+    func showAlert(message:String)
+    {
+        let alertController = UIAlertController(title: "Network error", message: "Unable to contact the server", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in
+            alertController.dismiss(animated: true, completion: nil)
+            
+        //MARK : core data method Update
+            
+            self.GetFetch()
+            
+            
+        }
+        action1.setValue(UIColor.black, forKey: "titleTextColor")
+        alertController.addAction(action1)
+        if UIApplication.shared.windows[0].rootViewController != nil
+        {
+            DispatchQueue.main.async {
+                UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
+            }
+        }
+
+    }
     
     func AlamofireGetCode()
     {
-       
+        if(!self.isInternetAvailable())
+        {
+            showAlert(message:"The Internet connection appears to be offline")
+           
+        }
+        
+        
+        
+        DispatchQueue.main.async {
+            self.showhud()
+        }
         var url:String!
         url = "https://api.themoviedb.org/3/movie/upcoming?api_key=14bc774791d9d20b3a138bb6e26e2579&language=en-US&page=\(pageNo)"
         
@@ -52,6 +150,37 @@ class ViewController: UIViewController {
                             self.movieListArray.append(item)
                         }
                         
+                        // Core data Store
+                        let contex = self.App.persistentContainer.viewContext
+                        for i in  self.movieListArray{
+                            
+                            let obj = NSEntityDescription.insertNewObject(forEntityName: "MovieList", into: contex)
+                                  
+                                       obj.setValue(i.movieTitle, forKey: "name")
+                                       obj.setValue(String(i.movieId), forKey: "id")
+                                       obj.setValue(i.movieOverview, forKey: "descriptions")
+                                       obj.setValue(i.movieReleaseDate, forKey: "date")
+                                       obj.setValue(i.movieImage, forKey: "image")
+                            
+                            print(i.movieTitle)
+                             print(i.movieId)
+                             print(i.movieOverview)
+                            print(i.movieReleaseDate)
+                            print(i.movieImage)
+                            
+                            do{
+                                try contex.save()
+                                
+                            }
+                            catch{
+                                
+                            }
+                            
+                            
+                        }
+                        
+                        
+                         self.hidehud()
                         self.tableviewMovie.delegate = self
                         self.tableviewMovie.dataSource = self
                         self.tableviewMovie.reloadData()
