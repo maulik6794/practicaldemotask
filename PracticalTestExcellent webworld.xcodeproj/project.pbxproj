@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		21AE634CB64AB76A8A1894B9 /* Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE1084F18ED2ADB34FDBE21 /* Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests.framework */; };
 		56BE80E6EC259F91EEFA9285 /* Pods_PracticalTestExcellent_webworldTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6256E0A73B72736CA285D3 /* Pods_PracticalTestExcellent_webworldTests.framework */; };
-		6721705B27691A8700064C80 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721705A27691A8700064C80 /* URLManager.swift */; };
 		6721705D2769259700064C80 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721705C2769259700064C80 /* MovieModel.swift */; };
 		67796B3B2768F2D5005B6143 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67796B3A2768F2D5005B6143 /* AppDelegate.swift */; };
 		67796B3F2768F2D5005B6143 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67796B3E2768F2D5005B6143 /* ViewController.swift */; };
@@ -46,7 +45,6 @@
 		1E7D176567EA530F7A620930 /* Pods_PracticalTestExcellent_webworld.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PracticalTestExcellent_webworld.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FC086BE6C28756FF9359B9 /* Pods-PracticalTestExcellent webworld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticalTestExcellent webworld.release.xcconfig"; path = "Target Support Files/Pods-PracticalTestExcellent webworld/Pods-PracticalTestExcellent webworld.release.xcconfig"; sourceTree = "<group>"; };
 		3349332E64E78195B1057036 /* Pods-PracticalTestExcellent webworldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticalTestExcellent webworldTests.debug.xcconfig"; path = "Target Support Files/Pods-PracticalTestExcellent webworldTests/Pods-PracticalTestExcellent webworldTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6721705A27691A8700064C80 /* URLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		6721705C2769259700064C80 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		67796B372768F2D5005B6143 /* PracticalTestExcellent webworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PracticalTestExcellent webworld.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67796B3A2768F2D5005B6143 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 				743BDF472769B090004381A9 /* Application */,
 				743BDF482769B0A2004381A9 /* Models */,
 				743BDF462769B080004381A9 /* Controllers */,
-				743BDF492769B0B6004381A9 /* Helpers */,
 				67796B402768F2D5005B6143 /* Main.storyboard */,
 				67796B462768F2D8005B6143 /* Assets.xcassets */,
 				67796B482768F2D8005B6143 /* LaunchScreen.storyboard */,
@@ -175,14 +172,6 @@
 				6721705C2769259700064C80 /* MovieModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		743BDF492769B0B6004381A9 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				6721705A27691A8700064C80 /* URLManager.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		900DA0EE39CF3B8F1707A514 /* Frameworks */ = {
@@ -448,7 +437,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				67796B452768F2D5005B6143 /* PracticalTestExcellent_webworld.xcdatamodeld in Sources */,
-				6721705B27691A8700064C80 /* URLManager.swift in Sources */,
 				6721705D2769259700064C80 /* MovieModel.swift in Sources */,
 				67796B3F2768F2D5005B6143 /* ViewController.swift in Sources */,
 				743BDF4B2769B97E004381A9 /* MovieDetailVC.swift in Sources */,

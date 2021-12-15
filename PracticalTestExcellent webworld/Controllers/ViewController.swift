@@ -12,10 +12,7 @@ class ViewController: UIViewController {
     var pageNo : Int = 1
     var limit : Int = 10
     var totalPages : Int = 0
-    var idMovieArray = NSMutableArray()
-    var titleArray = NSMutableArray()
-    var overViewArray = NSMutableArray()
-    var releseDateaArray = NSMutableArray()
+   
     var imageArray = [String]()
     var isLoadingList : Bool = false
     
@@ -28,12 +25,12 @@ class ViewController: UIViewController {
         self.AlamofireGetCode()
     }
     
+    
+    
+    
     func AlamofireGetCode()
     {
-        self.idMovieArray.removeAllObjects()
-        self.titleArray.removeAllObjects()
-        self.overViewArray.removeAllObjects()
-        self.releseDateaArray.removeAllObjects()
+       
         var url:String!
         url = "https://api.themoviedb.org/3/movie/upcoming?api_key=14bc774791d9d20b3a138bb6e26e2579&language=en-US&page=\(pageNo)"
         
@@ -50,7 +47,7 @@ class ViewController: UIViewController {
                         
                         for json in resultDic
                         {
-                            let item = MovieModel.init(MovieId: (json["id"] as? AnyObject? as? String) ?? "", MovieImage: (json["poster_path"] as? AnyObject? as? String) ?? "", MovieTitle: (json["original_title"] as? AnyObject? as? String) ?? "", MovieReleaseDate: (json["release_date"] as? AnyObject? as? String) ?? "", MovieOverView: (json["overview"] as? AnyObject? as? String) ?? "")
+                            let item = MovieModel.init(MovieId: (json["id"] as? AnyObject? as? Int) ?? 0, MovieImage: (json["poster_path"] as? AnyObject? as? String) ?? "", MovieTitle: (json["original_title"] as? AnyObject? as? String) ?? "", MovieReleaseDate: (json["release_date"] as? AnyObject? as? String) ?? "", MovieOverView: (json["overview"] as? AnyObject? as? String) ?? "")
                             
                             self.movieListArray.append(item)
                         }
@@ -85,12 +82,12 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieListtableviewCell") as! movieListtableviewCell
-        
+        cell.selectionStyle = .none
         cell.lblMovieName.text = self.movieListArray[indexPath.row].movieTitle
         cell.lblMovieDate.text = self.movieListArray[indexPath.row].movieReleaseDate
         cell.lblMovieDescription.text = self.movieListArray[indexPath.row].movieOverview
             
-        //  cell.imgMovielist.setImageWithURL("\("https://image.tmdb.org/t/p/w200") \(imageArray)", placeholderImage: "")
+       
         
         let objImgRow = self.movieListArray[indexPath.row].movieImage
         
@@ -102,6 +99,15 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return  UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as! MovieDetailVC
+        vc.movieID = movieListArray[indexPath.row].movieId!
+        vc.movieTitle = movieListArray[indexPath.row].movieTitle!
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
     //pagination
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isLoadingList = false
