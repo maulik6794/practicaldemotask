@@ -1,0 +1,6 @@
+framework module Pods_PracticalTestExcellent_webworld_PracticalTestExcellent_webworldUITests {
+  umbrella header "Pods-PracticalTestExcellent webworld-PracticalTestExcellent webworldUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
